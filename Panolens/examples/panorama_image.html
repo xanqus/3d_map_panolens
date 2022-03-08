@@ -46,36 +46,42 @@
 
     <script>
       const panorama = new PANOLENS.ImagePanorama(
-        '../../asset/textures/equirectangular/field.jpg'
-      )
-      const viewer = new PANOLENS.Viewer({ output: 'console' })
-      viewer.add(panorama)
+        "../../asset/textures/equirectangular/field.jpg"
+      );
+      const viewer = new PANOLENS.Viewer({ output: "console" });
+      viewer.add(panorama);
 
-      const testFunc = () => {
-        window.addEventListener('click', () => {
-          const coordinate = viewer.outputPosition().split(',')
-          const x = coordinate[0].trim()
-          const y = coordinate[1].trim()
-          const z = coordinate[2].trim()
-          console.log('x : ' + x + ' y : ' + y + ' z : ' + z)
+      const testFunc = function () {
+        const coordinate = viewer.outputPosition().split(",");
+        const x = coordinate[0].trim();
+        const y = coordinate[1].trim();
+        const z = coordinate[2].trim();
+        console.log("x : " + x + " y : " + y + " z : " + z);
 
-          infospot = new PANOLENS.Infospot(300, PANOLENS.DataImage.Info)
-          infospot.position.set(x, y, z)
+        infospot = new PANOLENS.Infospot(300, PANOLENS.DataImage.Info);
+        infospot.position.set(x, y, z);
 
-          panorama.add(infospot)
-        })
-      }
+        panorama.add(infospot);
+      };
 
-      window.onkeydown = e => {
-        if (e.code === 'KeyZ') {
-          alert('hi')
-          panorama.addEventListener('click', testFunc)
-        } else {
-          alert('another')
-          panorama.removeEventListener('click', testFunc)
+      const addHandler = function () {
+        panorama.addEventListener("click", testFunc);
+      };
+
+      const removeHandler = function () {
+        panorama.removeEventListener("click", testFunc);
+      };
+
+      window.onkeydown = (e) => {
+        if (e.code === "KeyZ") {
+          addHandler();
+          alert("hi");
+        } else if (e.code === "KeyD") {
+          removeHandler();
+          alert("another");
         }
-        console.log(e.code)
-      }
+        console.log(e.code);
+      };
     </script>
   </body>
 </html>
